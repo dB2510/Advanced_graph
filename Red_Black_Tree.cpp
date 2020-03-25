@@ -80,46 +80,56 @@ void INSERT_FIXUP(struct Node* node)
                 // This is case 1
                 node -> parent -> color = "black";
                 y -> color = "black";
-                node -> parent -> parent -> color = "black";
+                node -> parent -> parent -> color = "red";
                 node = node -> parent -> parent;
             }
-            else if(node == node -> parent -> right)
+            else 
             {
-                // std::cout << "auridharhai" << std::endl;
-                // This is case 2
-                node = node -> parent;
-                LEFT_ROTATE(node);
+                if(node == node -> parent -> right)
+                {
+                    // std::cout << "auridharhai" << std::endl;
+                    // This is case 2
+                    node = node -> parent;
+                    LEFT_ROTATE(node);
+                }
+                // std::cout << "yahabhi" << std::endl;
+                // This is case 3
+                node -> parent -> color = "black";
+                node -> parent -> parent -> color = "red";
+                // std::cout << node -> parent -> parent -> data << std::endl;
+                RIGHT_ROTATE(node -> parent -> parent);    
             }
-            // std::cout << "yahabhi" << std::endl;
-            // This is case 3
-            node -> parent -> color = "black";
-            node -> parent -> parent -> color = "red";
-            // std::cout << node -> parent -> parent -> data << std::endl;
-            RIGHT_ROTATE(node -> parent -> parent);
+            
         }
         else
         {
+            // std::cout << "idharhai" << std::endl;
             struct Node* y;
             y = node -> parent -> parent -> left;
             if(y -> color == "red")
             {
+                // std::cout << "idharbhi" << std::endl;
                 // This is case 1
                 node -> parent -> color = "black";
                 y -> color = "black";
-                node -> parent -> parent -> color = "black";
+                node -> parent -> parent -> color = "red";
                 node = node -> parent -> parent;
             }
-            else if(node == node -> parent -> left)
+            else 
             {
-                node = node -> parent;
-                RIGHT_ROTATE(node);
-            }
-            node -> parent -> color = "black";
-            node -> parent -> parent -> color = "red";
-            LEFT_ROTATE(node -> parent -> parent);
+                if(node == node -> parent -> left)
+                {
+                    node = node -> parent;
+                    RIGHT_ROTATE(node);
+                }
+                node -> parent -> color = "black";
+                node -> parent -> parent -> color = "red";
+                LEFT_ROTATE(node -> parent -> parent);    
+            }   
         }
-        
     }
+    if(node == root && node -> color == "red")
+    node -> color = "black";
 }
 
 
@@ -166,25 +176,25 @@ void preorder_traversal(struct Node* node)
 
 int main()
 {
-    // int nodes;
-    // std::cin >> nodes;
+    int nodes;
+    std::cin >> nodes;
     nil = (struct Node *) malloc(sizeof(struct Node));
     nil -> color = "black";
     nil -> left = NULL;
     nil -> right = NULL;
     nil -> parent = NULL;
     root = nil; 
-    // while(nodes--)
-    // {
-    //     struct Node* node;
-    //     int x;
-    //     std::cin >> x;
-    //     INSERT(x);
-    // }
-    INSERT(11);
-    INSERT(2);
-    INSERT(1);
-    INSERT(7);
+    while(nodes--)
+    {
+        struct Node* node;
+        int x;
+        std::cin >> x;
+        INSERT(x);
+    }
+    // INSERT(11);
+    // INSERT(2);
+    // INSERT(1);
+    // INSERT(7);
     // std::cout << root -> color << std::endl;
     preorder_traversal(root);
     return 0;
