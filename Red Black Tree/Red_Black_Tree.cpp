@@ -179,7 +179,12 @@ int main()
     INSERT(2);
     INSERT(1);
     INSERT(7);
-    std::cout << root -> color << std::endl;
+    struct Node* x;
+    x = search(root, 2);
+    // std::cout << x -> data <<" "<<x -> color << std::endl;
+    preorder_traversal(root);
+    DELETE(x);
+    std::cout << "Delete karne k baad" << std::endl;
     preorder_traversal(root);
     return 0;
 }
