@@ -1,6 +1,68 @@
 #include<iostream>
 #include "insertion.hpp"
 
+struct Node* TREE_MINIMUM(struct Node* x)
+{
+    while(x -> left != nil)
+    x = x -> left;
+    return x;
+}
+
+void TRANSPLANT(struct Node* u,struct Node* v)
+{
+    if(u -> parent == nil)
+    root = v;
+    else if(u == u -> parent -> left)
+    u -> parent -> left = v;
+    else
+    u -> parent -> right = v;
+    v -> parent = u -> parent;
+}
+
+void DELETE_FIXUP(struct Node* x)
+{
+    while()
+}
+
+void DELETE(struct Node* z)
+{
+    struct Node* y;
+    struct Node* x;
+    y = z;
+    std::string y_original_color = y -> color;
+    if(z -> left == nil)
+    {
+        x = z -> right;
+        TRANSPLANT(z, z -> right);
+    }
+    else if(z -> right == nil)
+    {
+        x = z -> left;
+        TRANSPLANT(z, z -> left);
+    }
+    else
+    {
+        y = TREE_MINIMUM(z -> right);
+        y_original_color = y -> color;
+        x = y -> right;
+        if(y -> parent == z)
+        x -> parent = y;
+        else
+        {
+            TRANSPLANT(y, y -> right);
+            y -> right = z -> right;
+            y -> right -> parent = y;
+        }
+        TRANSPLANT(z, y);
+        y -> left = z -> left;
+        y -> left -> parent = y;
+        y -> color = z -> color;        
+    }
+    if(y_original_color == "black")
+    DELETE_FIXUP(x);
+    
+}
+
 void preorder_traversal(struct Node* node)
 {
     if(node!=nil)
