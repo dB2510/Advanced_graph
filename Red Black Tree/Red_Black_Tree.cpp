@@ -1,6 +1,16 @@
 #include<iostream>
 #include "insertion.hpp"
 
+
+struct Node* search(struct Node* x, int item)
+{
+    if(x == nil || item == x -> data)
+    return x;
+    if(item < x -> data)
+    return search(x -> left, item);
+    return search(x -> right, item); 
+}
+
 struct Node* TREE_MINIMUM(struct Node* x)
 {
     while(x -> left != nil)
@@ -21,7 +31,82 @@ void TRANSPLANT(struct Node* u,struct Node* v)
 
 void DELETE_FIXUP(struct Node* x)
 {
-    while()
+    while(x != root && x -> color == "black")
+    {
+        if(x == x -> parent -> left)
+        {   
+            struct Node* w;
+            w = x -> parent -> right;
+            if(w -> color == "red")
+            {
+                // This is case 1
+                w -> color = "black";
+                x -> parent -> color = "red";
+                LEFT_ROTATE(x -> parent);
+                w = x -> parent -> right;
+            }
+            if(w -> left -> color == "black" && w -> right -> color == "black")
+            {
+                // This is case 2
+                w -> color = "red";
+                x = x -> parent;
+            }
+            else
+            {
+                if(w -> right -> color == "black")
+                {
+                    // This is case 3
+                    w -> left -> color = "black";
+                    w -> color = "red";
+                    RIGHT_ROTATE(w);
+                    w = x -> parent -> right;
+                }
+                // This is case 4
+                w -> color = x -> parent -> color;
+                x -> parent -> color = "black";
+                w -> right -> color = "black";
+                LEFT_ROTATE(x -> parent);
+                x = root;
+            }
+        }
+        else
+        {
+            struct Node* w;
+            w = x -> parent -> left;
+            if(w -> color == "red")
+            {
+                // This is case 1
+                w -> color = "black";
+                x -> parent -> color = "red";
+                RIGHT_ROTATE(x -> parent);
+                w = x -> parent -> left;
+            }
+            if(w -> left -> color == "black" && w -> right -> color == "black")
+            {
+                // This is case 2
+                w -> color = "red";
+                x = x -> parent;
+            }
+            else
+            {
+                if(w -> left -> color == "black")
+                {
+                    // This is case 3
+                    w -> right -> color = "black";
+                    w -> color = "red";
+                    LEFT_ROTATE(w);
+                    w = x -> parent -> left;
+                }
+                // This is case 4
+                w -> color = x -> parent -> color;
+                x -> parent -> color = "black";
+                w -> left -> color = "black";
+                RIGHT_ROTATE(x -> parent);
+                x = root;
+            }
+        }
+    }
+    x -> color = "black";
 }
 
 void DELETE(struct Node* z)
@@ -75,26 +160,26 @@ void preorder_traversal(struct Node* node)
 
 int main()
 {
-    int nodes;
-    std::cin >> nodes;
+    // int nodes;
+    // std::cin >> nodes;
     nil = (struct Node *) malloc(sizeof(struct Node));
     nil -> color = "black";
     nil -> left = NULL;
     nil -> right = NULL;
     nil -> parent = NULL;
     root = nil; 
-    while(nodes--)
-    {
-        struct Node* node;
-        int x;
-        std::cin >> x;
-        INSERT(x);
-    }
-    // INSERT(11);
-    // INSERT(2);
-    // INSERT(1);
-    // INSERT(7);
-    // std::cout << root -> color << std::endl;
+    // while(nodes--)
+    // {
+    //     struct Node* node;
+    //     int x;
+    //     std::cin >> x;
+    //     INSERT(x);
+    // }
+    INSERT(11);
+    INSERT(2);
+    INSERT(1);
+    INSERT(7);
+    std::cout << root -> color << std::endl;
     preorder_traversal(root);
     return 0;
 }
