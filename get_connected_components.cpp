@@ -38,10 +38,6 @@ unordered_set<unordered_set<int>*>* getcompo(int n, vector<int>*edges)
 
 int main()
 {
-#ifndef ONLINE_JUDGE
-    freopen("/home/dhruv/Desktop/input.txt", "r", stdin);
-    freopen("/home/dhruv/Desktop/output.txt", "w", stdout);
-#endif
     int t;
     cin>>t;
     while(t--)
