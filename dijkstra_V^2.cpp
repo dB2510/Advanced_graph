@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define INF 10e9;
+// Algorithm Paradigm: GREEDY
 
 int main()
 {

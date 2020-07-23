@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Algorithm Paradigm: GREEDY
+
 int main()
 {
     int vertices, edges;
